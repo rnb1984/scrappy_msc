@@ -80,7 +80,7 @@ for i in range(14,num_max):
 count = 0
 
 # Store all information in a csv file    
-with open("meals_page.csv", "w") as toWrite:
+with open("meals_page_test.csv", "w") as toWrite:
     writer = csv.writer(toWrite, delimiter=",")
     writer.writerow(["meal name", "page link"])
     for meal in meal_pages.keys():

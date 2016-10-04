@@ -1,0 +1,109 @@
+if start > end:
+            if start + index_start > limit:
+                # when the new start point is outside the range
+                items_start = end - ((start + index_start)-limit)
+                if items_start + size > end:
+                    # when the end point is outside the range
+                    items_end = start - ((items_start + size)- end)
+                else:
+                    items_end = items_start + size
+            
+            elif start + index_start > self.BASE_SIZE:
+                # when the new start point is outside the range of all items
+                items_start = end - ((start + index_start)-self.BASE_SIZE)
+                if items_start + size > end:
+                    # when the end point is outside the range
+                    items_end = start - ((items_start + size)- end)
+                else:
+                    items_end = items_start + size
+            else:
+                items_start = index_start + start
+                if items_start + size > end:
+                    # when the end point is outside the range
+                    items_end = start - ((items_start + size)- end)
+                else:
+                    items_end = items_start + size
+        else:
+            if start + index_start > limit:
+                # when the new start point is outside the range
+                items_start = end - ((start + index_start)-limit)
+                if items_start + size > end:
+                    # when the end point is outside the range
+                    items_end = start - ((items_start + size)- end)
+                else:
+                    items_end = items_start + size
+            
+            elif start + index_start > self.BASE_SIZE:
+                # when the new start point is outside the range of all items
+                items_start = end - ((start + index_start)-self.BASE_SIZE)
+                if items_start + size > end:
+                    # when the end point is outside the range
+                    items_end = start - ((items_start + size)- end)
+                else:
+                    items_end = items_start + size
+            else:
+                items_start = index_start + start
+                if items_start + size > end:
+                    # when the end point is outside the range
+                    items_end = start - ((items_start + size)- end)
+                else:
+                    items_end = items_start + size
+                    
+                    
+                    
+====================== seceond attempt
+
+# populate the global index with items
+        index_start = self.random_start(0, size) # finds an index in the size of the training/sub set
+        
+        items_mixed =[]
+        items_com = []
+        
+        for i in range(size):
+            # checking everythin is in range
+            if self.train_start > self.train_end:
+                if start > end:
+                    if start + i + index_start > self.BASE_SIZE:
+                        # the middle tricky bit
+                        excess = (i + index_start+start)
+                        if excess - self.BASE_SIZE -1 > end:
+                            excess = ((i + index_start+start)- self.BASE_SIZE -1)-end
+                            items_mixed.append(start + excess)
+                        else:
+                            items_mixed.append(((i + index_start+start)- self.BASE_SIZE)+ start - 1)
+                    else:
+                        items_mixed.append(start + i + index_start)
+                else:
+                    if start + i + index_start > self.BASE_SIZE:
+                        # the middle tricky bit
+                        if (i + index_start+start)- self.BASE_SIZE -1 > end:
+                            excess = ((i + index_start+start)- self.BASE_SIZE -1)-end
+                            items_mixed.append(start + excess)
+                        else:
+                            items_mixed.append(((i + index_start+start)- self.BASE_SIZE)+ end - 1)
+                    elif start + i + index_start > end:
+                        items_mixed.append(((i + index_start+start)-limit)+ end)
+                    else:
+                        items_mixed.append(start + i + index_start)
+            else:
+                if start > end:
+                    if start + i + index_start > self.BASE_SIZE:
+                        items_mixed.append(((i + index_start+start)- self.BASE_SIZE)+ end)
+                    elif start + i + index_start > limit:
+                        # the middle tricky bit
+                        excess = ((i + index_start + start)- limit)
+                        if excess + self.train_start >= end:
+                            excess = (excess + self.train_start) - end
+                            items_mixed.append(start + excess -1)
+                        else: items_mixed.append(excess + self.train_start)
+                    else:
+                        items_mixed.append(start + i + index_start)
+                else:
+                    if start + i + index_start > self.BASE_SIZE:
+                        items_mixed.append(((i + index_start+start)- self.BASE_SIZE)+ end)
+                    elif start + i + index_start > end:
+                        items_mixed.append(((i + index_start+start-1)-end)+ start)
+                    else:
+                        items_mixed.append(start + i + index_start)
+                        
+                        
