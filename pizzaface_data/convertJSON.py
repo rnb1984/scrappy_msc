@@ -4,13 +4,13 @@ from pairs import Pairs
 DIR_CSV = 'csv/'
 DIR_JSON = 'JSON/'
 
-users_exp_one =''
-users_exp_two ='pizzaface-currresults-04.10.2016'
+users_exp_one ='expone-curr-results'
+users_exp_two ='curr-results'
 
-emails_exp ='pizaface-users-4.10.2016'
+emails_exp ='users'
 
-pairs_exp_one =''
-pairs_exp_two ='pizaface-pairs-4.10.2016'
+pairs_exp_one = 'expone-pairs'
+pairs_exp_two ='pairs'
 
 """
 csv updates
@@ -83,11 +83,11 @@ def save_user_pairs_to_csv(json, exp):
         user = str(p[0])
         for i in range(0, len(p[1]['index'])):
             # pairwise details
-            a, b = pairs.get_pairs(p[1]['index'][i])
-            row=[ user, exp, a, b, p[1]['value'][i]]
+            left_p, right_p = pairs.get_pairs(p[1]['index'][i])
+            row=[ user, exp, p[1]['index'][i], left_p, right_p, p[1]['value'][i]]
             doc_pairs.append(row)
             # ui details
-            row=[user,exp,p[1]['pic'][i],p[1]['time'][i],p[1]['t_at'][i],p[1]['scrn_h'][i],p[1]['scrn_w'][i],p[1]['scroll_x'][i], p[1]['scroll_y'][i]]
+            row=[user,exp,p[1]['index'][i],p[1]['pic'][i],p[1]['time'][i],p[1]['t_at'][i],p[1]['scrn_h'][i],p[1]['scrn_w'][i],p[1]['scroll_x'][i], p[1]['scroll_y'][i]]
             doc_ui.append(row)
         
         # details of experiment   
@@ -165,10 +165,17 @@ def open_json(name):
     file = DIR_JSON + name + '.json'
     # open 
     with open(file) as open_json:
-    #open_json = open(file)   #read_json = open_json.read()
-        data = json.load(open_json)#[exp]
+        data = json.load(open_json)
     return data
 
+# Experiment one
+#all_pairs = get_user_all_pairs_json(pairs_exp_one, 'exp_1')
+#save_user_pairs_to_csv(all_pairs, 2)
+
+#all_users = get_results_json(users_exp_one,'exp_1')
+#save_user_to_csv(all_users, 'expone-user-details')
+
+# Experiment two
 all_pairs = get_user_all_pairs_json(pairs_exp_two, 'exp_2')
 save_user_pairs_to_csv(all_pairs, 2)
 
